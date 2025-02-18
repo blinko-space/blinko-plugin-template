@@ -3,16 +3,15 @@
 import { render } from 'preact/compat';
 import { App } from "./app"
 import type { BasePlugin, PluginType } from 'blinko';
+import plugin from '../plugin.json';
 
 System.register([], (exports) => ({
   execute: () => {
     exports('default', class Plugin implements BasePlugin {
-      name = "my-note-plugin";
-      description = "a note plugin";
-      version = "1.0.5";
-      author = "blinko-offical";
+      constructor() {
+        Object.assign(this, plugin);
+      }
       type = 'frontend' as PluginType;
-
       async init() {
         console.log(123123)
         window.Blinko.addToolBarIcon({
