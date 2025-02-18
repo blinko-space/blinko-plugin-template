@@ -1,6 +1,5 @@
 /** @jsxImportSource preact */
 /// <reference types="systemjs" />
-/// <reference types="blinko" />
 import { render } from 'preact/compat';
 import { App } from "./app"
 import type { BasePlugin, PluginType } from 'blinko';
