@@ -10,7 +10,7 @@ export function App(context: any): JSXInternal.Element {
       <div class="card">
         <button onClick={() => {
           setCount(count => count + 1);
-          console.log(window.Blinko.toast.success('成功'))
+          console.log(window.Blinko.toast.success('成功4334'))
         }}>count is {count}</button>
       </div>
     </>

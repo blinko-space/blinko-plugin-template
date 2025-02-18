@@ -12,14 +12,17 @@
   },
   "description": "一个 Next.js 插件示例",
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "bun index.ts",
     "build": "vite build"
   },
   "dependencies": {
     "@preact/preset-vite": "^2.10.1",
     "@types/systemjs": "^6.15.1",
+    "@types/ws": "^8.5.10",
+    "chalk": "^5.4.1",
     "preact": "^10.26.0",
     "preact-iso": "^2.9.0",
-    "systemjs": "^6.15.1"
+    "systemjs": "^6.15.1",
+    "ws": "^8.16.0"
   }
 }
