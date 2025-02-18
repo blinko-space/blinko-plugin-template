@@ -10,7 +10,7 @@
     "typescript": "^5.0.0",
     "vite": "^4.0.0"
   },
-  "description": "一个 Next.js 插件示例",
+  "description": "a blinko plugin",
   "scripts": {
     "dev": "bun index.ts",
     "build": "vite build"
