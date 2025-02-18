@@ -9,7 +9,7 @@ System.register([], (exports) => ({
   execute: () => {
     exports('default', class Plugin implements BasePlugin {
       name = "my-note-plugin";
-      description = "一个笔记插件";
+      description = "a note plugin";
       version = "1.0.5";
       author = "blinko-offical";
       type = 'frontend' as PluginType;
