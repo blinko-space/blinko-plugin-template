@@ -44,7 +44,7 @@ const sendLatestCode = (client: any) => {
 };
 
 // Start the Vite build process with watch mode
-const viteProcess = spawn('vite', ['build', '--watch'], {
+spawn('vite', ['build', '--watch', '--mode', 'dev'], {
   stdio: 'inherit',
   shell: true
 });

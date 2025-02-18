@@ -13,7 +13,7 @@
   "description": "a blinko plugin",
   "scripts": {
     "dev": "bun index.ts",
-    "build": "vite build"
+    "build:release": "vite build --mode production"
   },
   "dependencies": {
     "@preact/preset-vite": "^2.10.1",
