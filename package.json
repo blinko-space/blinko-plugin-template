@@ -3,23 +3,30 @@
   "version": "1.0.0",
   "type": "module",
   "devDependencies": {
+    "@octokit/rest": "^19.0.0",
+    "@types/adm-zip": "^0.5.0",
     "@types/bun": "^1.2.2",
     "@types/node": "^22.13.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "adm-zip": "^0.5.10",
     "blinko": "^0.0.8",
+    "blinko-cli": "^0.0.1",
     "typescript": "^5.0.0",
     "vite": "^4.0.0"
   },
   "description": "a blinko plugin",
   "scripts": {
     "dev": "bun index.ts",
-    "build:release": "vite build --mode production"
+    "release:publish": "vite build --mode production && blinko-cli release plugin"
   },
   "dependencies": {
+    "@octokit/auth-oauth-device": "^7.1.3",
     "@preact/preset-vite": "^2.10.1",
     "@types/systemjs": "^6.15.1",
     "@types/ws": "^8.5.10",
     "chalk": "^5.4.1",
+    "open": "^10.1.0",
+    "ora": "^8.2.0",
     "preact": "^10.26.0",
     "preact-iso": "^2.9.0",
     "systemjs": "^6.15.1",
