@@ -1,7 +1,7 @@
 var Ve = Object.defineProperty;
 var ze = (e, _, t) => _ in e ? Ve(e, _, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[_] = t;
 var re = (e, _, t) => (ze(e, typeof _ != "symbol" ? _ + "" : _, t), t);
-var V, f, Ne, C, ie, Se, Ee, He, ee, G, J, T = {}, Ae = [], je = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, z = Array.isArray;
+var V, f, Ce, S, ie, Ee, He, Ne, ee, G, J, T = {}, Ae = [], je = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, z = Array.isArray;
 function x(e, _) {
   for (var t in _)
     e[t] = _[t];
@@ -20,22 +20,22 @@ function K(e, _, t) {
   return R(e, l, n, o, null);
 }
 function R(e, _, t, n, o) {
-  var r = { type: e, props: _, key: t, ref: n, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: o ?? ++Ne, __i: -1, __u: 0 };
+  var r = { type: e, props: _, key: t, ref: n, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: o ?? ++Ce, __i: -1, __u: 0 };
   return o == null && f.vnode != null && f.vnode(r), r;
 }
-function N(e) {
+function C(e) {
   return e.children;
 }
 function $(e, _) {
   this.props = e, this.context = _;
 }
-function S(e, _) {
+function E(e, _) {
   if (_ == null)
-    return e.__ ? S(e.__, e.__i + 1) : null;
+    return e.__ ? E(e.__, e.__i + 1) : null;
   for (var t; _ < e.__k.length; _++)
     if ((t = e.__k[_]) != null && t.__e != null)
       return t.__e;
-  return typeof e.type == "function" ? S(e) : null;
+  return typeof e.type == "function" ? E(e) : null;
 }
 function Ue(e) {
   var _, t;
@@ -49,11 +49,11 @@ function Ue(e) {
   }
 }
 function le(e) {
-  (!e.__d && (e.__d = !0) && C.push(e) && !L.__r++ || ie !== f.debounceRendering) && ((ie = f.debounceRendering) || Se)(L);
+  (!e.__d && (e.__d = !0) && S.push(e) && !L.__r++ || ie !== f.debounceRendering) && ((ie = f.debounceRendering) || Ee)(L);
 }
 function L() {
-  for (var e, _, t, n, o, r, l, u = 1; C.length; )
-    C.length > u && C.sort(Ee), e = C.shift(), u = C.length, e.__d && (t = void 0, o = (n = (_ = e).__v).__e, r = [], l = [], _.__P && ((t = x({}, n)).__v = n.__v + 1, f.vnode && f.vnode(t), te(_.__P, t, n, _.__n, _.__P.namespaceURI, 32 & n.__u ? [o] : null, r, o ?? S(n), !!(32 & n.__u), l), t.__v = n.__v, t.__.__k[t.__i] = t, De(r, t, l), t.__e != o && Ue(t)));
+  for (var e, _, t, n, o, r, l, u = 1; S.length; )
+    S.length > u && S.sort(He), e = S.shift(), u = S.length, e.__d && (t = void 0, o = (n = (_ = e).__v).__e, r = [], l = [], _.__P && ((t = x({}, n)).__v = n.__v + 1, f.vnode && f.vnode(t), te(_.__P, t, n, _.__n, _.__P.namespaceURI, 32 & n.__u ? [o] : null, r, o ?? E(n), !!(32 & n.__u), l), t.__v = n.__v, t.__.__k[t.__i] = t, De(r, t, l), t.__e != o && Ue(t)));
   L.__r = 0;
 }
 function Te(e, _, t, n, o, r, l, u, a, c, h) {
@@ -65,10 +65,10 @@ function Te(e, _, t, n, o, r, l, u, a, c, h) {
 function Ie(e, _, t, n, o) {
   var r, l, u, a, c, h = t.length, i = h, p = 0;
   for (e.__k = new Array(o), r = 0; r < o; r++)
-    (l = _[r]) != null && typeof l != "boolean" && typeof l != "function" ? (a = r + p, (l = e.__k[r] = typeof l == "string" || typeof l == "number" || typeof l == "bigint" || l.constructor == String ? R(null, l, null, null, null) : z(l) ? R(N, { children: l }, null, null, null) : l.constructor === void 0 && l.__b > 0 ? R(l.type, l.props, l.key, l.ref ? l.ref : null, l.__v) : l).__ = e, l.__b = e.__b + 1, u = null, (c = l.__i = qe(l, t, a, i)) !== -1 && (i--, (u = t[c]) && (u.__u |= 2)), u == null || u.__v === null ? (c == -1 && p--, typeof l.type != "function" && (l.__u |= 4)) : c != a && (c == a - 1 ? p-- : c == a + 1 ? p++ : (c > a ? p-- : p++, l.__u |= 4))) : e.__k[r] = null;
+    (l = _[r]) != null && typeof l != "boolean" && typeof l != "function" ? (a = r + p, (l = e.__k[r] = typeof l == "string" || typeof l == "number" || typeof l == "bigint" || l.constructor == String ? R(null, l, null, null, null) : z(l) ? R(C, { children: l }, null, null, null) : l.constructor === void 0 && l.__b > 0 ? R(l.type, l.props, l.key, l.ref ? l.ref : null, l.__v) : l).__ = e, l.__b = e.__b + 1, u = null, (c = l.__i = qe(l, t, a, i)) !== -1 && (i--, (u = t[c]) && (u.__u |= 2)), u == null || u.__v === null ? (c == -1 && p--, typeof l.type != "function" && (l.__u |= 4)) : c != a && (c == a - 1 ? p-- : c == a + 1 ? p++ : (c > a ? p-- : p++, l.__u |= 4))) : e.__k[r] = null;
   if (i)
     for (r = 0; r < h; r++)
-      (u = t[r]) != null && !(2 & u.__u) && (u.__e == n && (n = S(u)), Oe(u, u));
+      (u = t[r]) != null && !(2 & u.__u) && (u.__e == n && (n = E(u)), Oe(u, u));
   return n;
 }
 function Me(e, _, t) {
@@ -78,7 +78,7 @@ function Me(e, _, t) {
       n[o] && (n[o].__ = e, _ = Me(n[o], _, t));
     return _;
   }
-  e.__e != _ && (_ && e.type && !t.contains(_) && (_ = S(e)), t.insertBefore(e.__e, _ || null), _ = e.__e);
+  e.__e != _ && (_ && e.type && !t.contains(_) && (_ = E(e)), t.insertBefore(e.__e, _ || null), _ = e.__e);
   do
     _ = _ && _.nextSibling;
   while (_ != null && _.nodeType == 8);
@@ -126,7 +126,7 @@ function O(e, _, t, n, o) {
             n && t[_] === n[_] || ue(e.style, _, t[_]);
       }
     else if (_[0] == "o" && _[1] == "n")
-      r = _ != (_ = _.replace(He, "$1")), _ = _.toLowerCase() in e || _ == "onFocusOut" || _ == "onFocusIn" ? _.toLowerCase().slice(2) : _.slice(2), e.l || (e.l = {}), e.l[_ + r] = t, t ? n ? t.t = n.t : (t.t = ee, e.addEventListener(_, r ? J : G, r)) : e.removeEventListener(_, r ? J : G, r);
+      r = _ != (_ = _.replace(Ne, "$1")), _ = _.toLowerCase() in e || _ == "onFocusOut" || _ == "onFocusIn" ? _.toLowerCase().slice(2) : _.slice(2), e.l || (e.l = {}), e.l[_ + r] = t, t ? n ? t.t = n.t : (t.t = ee, e.addEventListener(_, r ? J : G, r)) : e.removeEventListener(_, r ? J : G, r);
     else {
       if (o == "http://www.w3.org/2000/svg")
         _ = _.replace(/xlink(H|:h)/, "h").replace(/sName$/, "s");
@@ -152,14 +152,14 @@ function ce(e) {
   };
 }
 function te(e, _, t, n, o, r, l, u, a, c) {
-  var h, i, p, s, g, k, b, d, v, E, P, M, H, oe, D, j, I, w = _.type;
+  var h, i, p, s, g, k, b, d, v, H, P, M, N, oe, D, j, I, w = _.type;
   if (_.constructor !== void 0)
     return null;
   128 & t.__u && (a = !!(32 & t.__u), r = [u = _.__e = t.__e]), (h = f.__b) && h(_);
   e:
     if (typeof w == "function")
       try {
-        if (d = _.props, v = "prototype" in w && w.prototype.render, E = (h = w.contextType) && n[h.__c], P = h ? E ? E.props.value : h.__ : n, t.__c ? b = (i = _.__c = t.__c).__ = i.__E : (v ? _.__c = i = new w(d, P) : (_.__c = i = new $(d, P), i.constructor = w, i.render = Ge), E && E.sub(i), i.props = d, i.state || (i.state = {}), i.context = P, i.__n = n, p = i.__d = !0, i.__h = [], i._sb = []), v && i.__s == null && (i.__s = i.state), v && w.getDerivedStateFromProps != null && (i.__s == i.state && (i.__s = x({}, i.__s)), x(i.__s, w.getDerivedStateFromProps(d, i.__s))), s = i.props, g = i.state, i.__v = _, p)
+        if (d = _.props, v = "prototype" in w && w.prototype.render, H = (h = w.contextType) && n[h.__c], P = h ? H ? H.props.value : h.__ : n, t.__c ? b = (i = _.__c = t.__c).__ = i.__E : (v ? _.__c = i = new w(d, P) : (_.__c = i = new $(d, P), i.constructor = w, i.render = Ge), H && H.sub(i), i.props = d, i.state || (i.state = {}), i.context = P, i.__n = n, p = i.__d = !0, i.__h = [], i._sb = []), v && i.__s == null && (i.__s = i.state), v && w.getDerivedStateFromProps != null && (i.__s == i.state && (i.__s = x({}, i.__s)), x(i.__s, w.getDerivedStateFromProps(d, i.__s))), s = i.props, g = i.state, i.__v = _, p)
           v && w.getDerivedStateFromProps == null && i.componentWillMount != null && i.componentWillMount(), v && i.componentDidMount != null && i.__h.push(i.componentDidMount);
         else {
           if (v && w.getDerivedStateFromProps == null && d !== s && i.componentWillReceiveProps != null && i.componentWillReceiveProps(d, P), !i.__e && (i.shouldComponentUpdate != null && i.shouldComponentUpdate(d, i.__s, P) === !1 || _.__v == t.__v)) {
@@ -174,15 +174,15 @@ function te(e, _, t, n, o, r, l, u, a, c) {
             i.componentDidUpdate(s, g, k);
           });
         }
-        if (i.context = P, i.props = d, i.__P = e, i.__e = !1, H = f.__r, oe = 0, v) {
-          for (i.state = i.__s, i.__d = !1, H && H(_), h = i.render(i.props, i.state, i.context), D = 0; D < i._sb.length; D++)
+        if (i.context = P, i.props = d, i.__P = e, i.__e = !1, N = f.__r, oe = 0, v) {
+          for (i.state = i.__s, i.__d = !1, N && N(_), h = i.render(i.props, i.state, i.context), D = 0; D < i._sb.length; D++)
             i.__h.push(i._sb[D]);
           i._sb = [];
         } else
           do
-            i.__d = !1, H && H(_), h = i.render(i.props, i.state, i.context), i.state = i.__s;
+            i.__d = !1, N && N(_), h = i.render(i.props, i.state, i.context), i.state = i.__s;
           while (i.__d && ++oe < 25);
-        i.state = i.__s, i.getChildContext != null && (n = x(x({}, n), i.getChildContext())), v && !p && i.getSnapshotBeforeUpdate != null && (k = i.getSnapshotBeforeUpdate(s, g)), u = Te(e, z(j = h != null && h.type === N && h.key == null ? h.props.children : h) ? j : [j], _, t, n, o, r, l, u, a, c), i.base = _.__e, _.__u &= -161, i.__h.length && l.push(i), b && (i.__E = i.__ = null);
+        i.state = i.__s, i.getChildContext != null && (n = x(x({}, n), i.getChildContext())), v && !p && i.getSnapshotBeforeUpdate != null && (k = i.getSnapshotBeforeUpdate(s, g)), u = Te(e, z(j = h != null && h.type === C && h.key == null ? h.props.children : h) ? j : [j], _, t, n, o, r, l, u, a, c), i.base = _.__e, _.__u &= -161, i.__h.length && l.push(i), b && (i.__E = i.__ = null);
       } catch (A) {
         if (_.__v = null, a || r != null)
           if (A.then) {
@@ -247,7 +247,7 @@ function Ze(e, _, t, n, o, r, l, u, a) {
       s = d[c], c == "children" ? p = s : c == "dangerouslySetInnerHTML" ? h = s : c == "value" ? g = s : c == "checked" ? k = s : u && typeof s != "function" || b[c] === s || O(e, c, s, b[c], o);
     if (h)
       u || i && (h.__html === i.__html || h.__html === e.innerHTML) || (e.innerHTML = h.__html), _.__k = [];
-    else if (i && (e.innerHTML = ""), Te(_.type === "template" ? e.content : e, z(p) ? p : [p], _, t, n, v == "foreignObject" ? "http://www.w3.org/1999/xhtml" : o, r, l, r ? r[0] : t.__k && S(t, 0), u, a), r != null)
+    else if (i && (e.innerHTML = ""), Te(_.type === "template" ? e.content : e, z(p) ? p : [p], _, t, n, v == "foreignObject" ? "http://www.w3.org/1999/xhtml" : o, r, l, r ? r[0] : t.__k && E(t, 0), u, a), r != null)
       for (c = r.length; c--; )
         _e(r[c]);
     u || (c = "value", v == "progress" && g == null ? e.removeAttribute("value") : g !== void 0 && (g !== e[c] || v == "progress" && !g || v == "option" && g !== b[c]) && O(e, c, g, b[c], o), c = "checked", k !== void 0 && k !== e[c] && O(e, c, k, b[c], o));
@@ -286,7 +286,7 @@ function Ge(e, _, t) {
 }
 function Je(e, _, t) {
   var n, o, r, l;
-  _ == document && (_ = document.documentElement), f.__ && f.__(e, _), o = (n = typeof t == "function") ? null : t && t.__k || _.__k, r = [], l = [], te(_, e = (!n && t || _).__k = K(N, null, [e]), o || T, T, _.namespaceURI, !n && t ? [t] : o ? null : _.firstChild ? V.call(_.childNodes) : null, r, !n && t ? t : o ? o.__e : _.firstChild, n, l), De(r, e, l);
+  _ == document && (_ = document.documentElement), f.__ && f.__(e, _), o = (n = typeof t == "function") ? null : t && t.__k || _.__k, r = [], l = [], te(_, e = (!n && t || _).__k = K(C, null, [e]), o || T, T, _.namespaceURI, !n && t ? [t] : o ? null : _.firstChild ? V.call(_.childNodes) : null, r, !n && t ? t : o ? o.__e : _.firstChild, n, l), De(r, e, l);
 }
 V = Ae.slice, f = { __e: function(e, _, t, n) {
   for (var o, r, l; _ = _.__; )
@@ -298,14 +298,14 @@ V = Ae.slice, f = { __e: function(e, _, t, n) {
         e = u;
       }
   throw e;
-} }, Ne = 0, $.prototype.setState = function(e, _) {
+} }, Ce = 0, $.prototype.setState = function(e, _) {
   var t;
   t = this.__s != null && this.__s !== this.state ? this.__s : this.__s = x({}, this.state), typeof e == "function" && (e = e(x({}, t), this.props)), e && x(t, e), e != null && this.__v && (_ && this._sb.push(_), le(this));
 }, $.prototype.forceUpdate = function(e) {
   this.__v && (this.__e = !0, e && this.__h.push(e), le(this));
-}, $.prototype.render = N, C = [], Se = typeof Promise == "function" ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, Ee = function(e, _) {
+}, $.prototype.render = C, S = [], Ee = typeof Promise == "function" ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, He = function(e, _) {
   return e.__v.__b - _.__v.__b;
-}, L.__r = 0, He = /(PointerCapture)$|Capture$/i, ee = 0, G = ce(!1), J = ce(!0);
+}, L.__r = 0, Ne = /(PointerCapture)$|Capture$/i, ee = 0, G = ce(!1), J = ce(!0);
 var Ke = 0;
 function U(e, _, t, n, o, r) {
   _ || (_ = {});
@@ -518,8 +518,8 @@ f.unmount = function(e) {
     }
     this.__b = null;
   }
-  var o = _.__a && K(N, null, e.fallback);
-  return o && (o.__u &= -33), [K(N, null, _.__a ? null : e.children), o];
+  var o = _.__a && K(C, null, e.fallback);
+  return o && (o.__u &= -33), [K(C, null, _.__a ? null : e.children), o];
 };
 var we = function(e, _, t) {
   if (++t[1] === t[0] && e.l.delete(_), e.props.revealOrder && (e.props.revealOrder[0] !== "t" || !e.l.size))
@@ -601,15 +601,15 @@ var xe = f.__r;
 f.__r = function(e) {
   xe && xe(e), e.__c;
 };
-var Ce = f.diffed;
+var Se = f.diffed;
 f.diffed = function(e) {
-  Ce && Ce(e);
+  Se && Se(e);
   var _ = e.props, t = e.__e;
   t != null && e.type === "textarea" && "value" in _ && _.value !== t.value && (t.value = _.value == null ? "" : _.value);
 };
 function d_(e) {
   const [_, t] = Xe(0);
-  return /* @__PURE__ */ U(N, { children: [
+  return /* @__PURE__ */ U(C, { children: [
     /* @__PURE__ */ U("h1", { children: "Vite + Preact1" }),
     /* @__PURE__ */ U("div", { class: "card", children: /* @__PURE__ */ U("button", { onClick: () => {
       t((n) => n + 1), console.log(window.Blinko.toast.success("成功4334"));
@@ -619,15 +619,15 @@ function d_(e) {
     ] }) })
   ] });
 }
-const v_ = "blinko-plugin-demo", m_ = "blinko-offical", y_ = "https://github.com/blinko-space/blinko-plugin-template", g_ = "0.0.2", b_ = "0.0.0", k_ = {
+const v_ = "blinko-plugin-demo", m_ = "blinko-offical", y_ = "https://github.com/blinko-space/blinko-plugin-template", g_ = "0.0.3", b_ = "0.0.0", k_ = {
   default: "Blinko plugin demo",
-  zh_CN: "Blinko插件示例"
+  zh: "Blinko插件示例"
 }, w_ = {
-  default: "a blinko plugin demo",
-  zh_CN: "一个blinko插件示例"
+  default: "This is a blinko plugin demo, you can use it as a template to create your own plugin.",
+  zh: "这是一个blinko插件示例，你可以使用它作为模板来创建自己的插件。"
 }, $_ = {
   default: "README.md",
-  zh_CN: "README_zh_CN.md"
+  zh: "README_zh.md"
 }, P_ = {
   name: v_,
   author: m_,
