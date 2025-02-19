@@ -619,7 +619,7 @@ function d_(e) {
     ] }) })
   ] });
 }
-const v_ = "blinko-plugin-demo", m_ = "blinko-offical", y_ = "https://github.com/blinko-offical/blinko-plugin-demo", g_ = "0.0.2", b_ = "0.0.0", k_ = {
+const v_ = "blinko-plugin-demo", m_ = "blinko-offical", y_ = "https://github.com/blinko-space/blinko-plugin-template", g_ = "0.0.2", b_ = "0.0.0", k_ = {
   default: "Blinko plugin demo",
   zh_CN: "Blinko插件示例"
 }, w_ = {
