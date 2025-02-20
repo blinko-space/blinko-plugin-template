@@ -80,6 +80,18 @@ const getLocalIP = () => {
   return 'localhost'; // Return localhost if no suitable IP is found
 };
 
+/**
+ * Ensures the dist directory exists
+ * Creates it if it doesn't exist
+ */
+const ensureDistDirectory = () => {
+  const distPath = './dist';
+  if (!fs.existsSync(distPath)) {
+    fs.mkdirSync(distPath);
+    console.log(chalk.green('📁 Created dist directory'));
+  }
+};
+
 // Start the Vite build process with watch mode
 spawn('vite', ['build', '--watch', '--mode', 'dev'], {
   stdio: 'inherit',
@@ -94,6 +106,7 @@ wss.on('connection', (client) => {
   sendLatestCode(client);
 });
 
+ensureDistDirectory();
 // Watch for changes in the 'dist' directory
 watch('./dist', { recursive: true }, (eventType, filename) => {
   if (filename && filename.endsWith('.js')) {
@@ -111,8 +124,11 @@ watch('./dist', { recursive: true }, (eventType, filename) => {
   }
 });
 
-// Initialize server
+/**
+ * Initialize server and setup environment
+ */
 async function initServer() {
+  // Start WebSocket server
   console.log(chalk.cyan(`🎉 Development server running at ws://${getLocalIP()}:8080`));
 }
 
