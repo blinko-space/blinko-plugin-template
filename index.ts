@@ -238,9 +238,36 @@ const createHttpServer = (port: number = 3000) => {
 
             function copyToClipboard(element) {
               const text = element.textContent.trim();
-              navigator.clipboard.writeText(text)
-                .then(() => showToast())
-                .catch(err => console.error('Failed to copy:', err));
+              
+              // Try using the modern Clipboard API first
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text)
+                  .then(() => showToast())
+                  .catch(err => fallbackCopy(text));
+              } else {
+                fallbackCopy(text);
+              }
+            }
+
+            function fallbackCopy(text) {
+              // Create a temporary textarea element
+              const textarea = document.createElement('textarea');
+              textarea.value = text;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.appendChild(textarea);
+              
+              // Select and copy the text
+              textarea.select();
+              try {
+                document.execCommand('copy');
+                showToast();
+              } catch (err) {
+                console.error('Failed to copy:', err);
+              }
+              
+              // Clean up
+              document.body.removeChild(textarea);
             }
 
             function showToast() {
