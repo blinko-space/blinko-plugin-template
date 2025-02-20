@@ -2,6 +2,8 @@
 
 A template for building Blinko plugins quickly and efficiently.
 
+[Blinko Plugin Development Documentation](https://blinko.mintlify.app/plugins/get-started)
+
 ## 🚀 Quick Start
 
 1. Clone this repository
