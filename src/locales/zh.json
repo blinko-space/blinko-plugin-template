@@ -1,0 +1,5 @@
+{
+  "title": "我的插件",
+  "countLabel": "计数为 {{count}}",
+  "successMessage": "成功！"
+} 
