@@ -13,7 +13,8 @@
   },
   "description": "a blinko plugin",
   "scripts": {
-    "dev": "bun index.ts",
+    "dev": "bun run index.ts",
+    "ngrok": "ngrok http 8080",
     "release:publish": "vite build --mode production && blinko-cli release plugin"
   },
   "dependencies": {

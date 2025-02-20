@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
 import * as fs from 'fs';
 import * as path from 'path';
+import plugin from './plugin.json';
 
 const generateRandomString = (length: number = 8) => {
   return Math.random().toString(36).substring(2, length + 2);
@@ -29,6 +30,9 @@ export default defineConfig(({ mode }) => ({
       }
     }
   ],
+  define: {
+    '__PLUGIN_JSON__': plugin
+  },
   build: {
     lib: {
       entry: 'src/index.tsx',

@@ -4,8 +4,22 @@ import { watch } from 'fs';
 import * as fs from 'fs';
 import * as path from 'path';
 import chalk from 'chalk';
+import { networkInterfaces } from 'os';
+import plugin from './plugin.json'
+// Get command line arguments
+const args = process.argv.slice(2);
 
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocketServer({ 
+  port: 8080,
+  // Add CORS headers in the upgrade process
+  verifyClient: (info, cb) => {
+    // Allow all origins
+    if (info.req.headers.origin) {
+      info.req.headers['access-control-allow-origin'] = '*';
+    }
+    cb(true);
+  }
+});
 
 /**
  * Retrieves the latest build file from the 'dist' directory.
@@ -35,12 +49,35 @@ const sendLatestCode = (client: any) => {
       client.send(JSON.stringify({
         type: 'code',
         fileName,
+        metadata: plugin,
         code: code
       }));
     }
   } catch (error) {
     console.error(chalk.red('❌ Failed to read file:'), error);
   }
+};
+
+/**
+ * Get the local network IP address
+ * @returns {string} Local network IP address
+ */
+const getLocalIP = () => {
+  const nets = networkInterfaces();
+  for (const name of Object.keys(nets)) {
+    const interfaces = nets[name];
+    if (!interfaces) continue;
+    
+    for (const net of interfaces) {
+      // Only get IPv4 addresses, non-internal, and starting with 192.168 or 10.
+      if (net.family === 'IPv4' && 
+          !net.internal && 
+          (net.address.startsWith('192.168.') || net.address.startsWith('10.'))) {
+        return net.address;
+      }
+    }
+  }
+  return 'localhost'; // Return localhost if no suitable IP is found
 };
 
 // Start the Vite build process with watch mode
@@ -51,6 +88,11 @@ spawn('vite', ['build', '--watch', '--mode', 'dev'], {
 
 // Debounce timer for file change events
 let debounceTimer: NodeJS.Timeout | null = null;
+
+wss.on('connection', (client) => {
+  console.log(chalk.green('🔌 New Blinko client connected'));
+  sendLatestCode(client);
+});
 
 // Watch for changes in the 'dist' directory
 watch('./dist', { recursive: true }, (eventType, filename) => {
@@ -69,5 +111,10 @@ watch('./dist', { recursive: true }, (eventType, filename) => {
   }
 });
 
-// Initial print of the server running message
-console.log(chalk.cyan('🎉 Development server is running on ws://localhost:8080')); 
+// Initialize server
+async function initServer() {
+  console.log(chalk.cyan(`🎉 Development server running at ws://${getLocalIP()}:8080`));
+}
+
+// Start the server
+initServer();
