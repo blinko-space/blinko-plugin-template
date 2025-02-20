@@ -217,7 +217,7 @@ const createHttpServer = (port: number = 3000) => {
 
             <p>External Access:</p>
             <div class="code" onclick="copyToClipboard(this)">
-              ws://<script>document.write(window.location.hostname)</script>:8080
+              ws://\${window.location.hostname}:8080
             </div>
           </div>
           <div class="container">
@@ -228,6 +228,14 @@ const createHttpServer = (port: number = 3000) => {
           <p class="highlight">Note: Keep this window open while developing your plugin.</p>
 
           <script>
+            // Update the external access URL on page load
+            document.addEventListener('DOMContentLoaded', () => {
+              const externalUrlElement = document.querySelector('.code:last-of-type');
+              if (externalUrlElement) {
+                externalUrlElement.textContent = \`ws://\${window.location.hostname}:8080\`;
+              }
+            });
+
             function copyToClipboard(element) {
               const text = element.textContent.trim();
               navigator.clipboard.writeText(text)
