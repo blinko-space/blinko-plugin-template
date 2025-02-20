@@ -232,7 +232,13 @@ const createHttpServer = (port: number = 3000) => {
             document.addEventListener('DOMContentLoaded', () => {
               const externalUrlElement = document.querySelector('.code:last-of-type');
               if (externalUrlElement) {
-                externalUrlElement.textContent = \`ws://\${window.location.hostname}:8080\`;
+                // Handle CodeSandbox domain
+                const hostname = window.location.hostname;
+                const wsHostname = hostname.includes('-3000') 
+                  ? hostname.replace('-3000', '-8080')
+                  : hostname;
+                
+                externalUrlElement.textContent = \`ws://\${wsHostname}:8080\`;
               }
             });
 
