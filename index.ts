@@ -1,26 +1,26 @@
-import { WebSocketServer } from 'ws';
-import { spawn } from 'child_process';
-import { watch } from 'fs';
-import * as fs from 'fs';
-import * as path from 'path';
-import chalk from 'chalk';
-import { networkInterfaces } from 'os';
-import plugin from './plugin.json'
-import * as http from 'http';
+import { WebSocketServer } from "ws";
+import { spawn } from "child_process";
+import { watch } from "fs";
+import * as fs from "fs";
+import * as path from "path";
+import chalk from "chalk";
+import { networkInterfaces } from "os";
+import plugin from "./plugin.json";
+import * as http from "http";
 
 // Get command line arguments
 const args = process.argv.slice(2);
 
-const wss = new WebSocketServer({ 
+const wss = new WebSocketServer({
   port: 8080,
   // Add CORS headers in the upgrade process
   verifyClient: (info, cb) => {
     // Allow all origins
     if (info.req.headers.origin) {
-      info.req.headers['access-control-allow-origin'] = '*';
+      info.req.headers["access-control-allow-origin"] = "*";
     }
     cb(true);
-  }
+  },
 });
 
 /**
@@ -28,8 +28,10 @@ const wss = new WebSocketServer({
  * @returns {string | undefined} The filename of the latest build file.
  */
 const getLatestBuildFile = () => {
-  const files = fs.readdirSync('./dist');
-  return files.find(file => file.startsWith('index_') && file.endsWith('.js'));
+  const files = fs.readdirSync("./dist");
+  return files.find(
+    (file) => file.startsWith("index_") && file.endsWith(".js")
+  );
 };
 
 /**
@@ -40,23 +42,29 @@ const sendLatestCode = (client: any) => {
   try {
     const fileName = getLatestBuildFile();
     if (!fileName) {
-      console.error(chalk.red('❌ No build file found.'));
+      console.error(chalk.red("❌ No build file found."));
       return;
     }
 
-    const code = fs.readFileSync(path.join('./dist', fileName), 'utf-8');
-    console.log(chalk.green(`📦 Build code size: ${code.length} bytes, Filename: ${fileName}`));
+    const code = fs.readFileSync(path.join("./dist", fileName), "utf-8");
+    console.log(
+      chalk.green(
+        `📦 Build code size: ${code.length} bytes, Filename: ${fileName}`
+      )
+    );
 
     if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({
-        type: 'code',
-        fileName,
-        metadata: plugin,
-        code: code
-      }));
+      client.send(
+        JSON.stringify({
+          type: "code",
+          fileName,
+          metadata: plugin,
+          code: code,
+        })
+      );
     }
   } catch (error) {
-    console.error(chalk.red('❌ Failed to read file:'), error);
+    console.error(chalk.red("❌ Failed to read file:"), error);
   }
 };
 
@@ -69,17 +77,19 @@ const getLocalIP = () => {
   for (const name of Object.keys(nets)) {
     const interfaces = nets[name];
     if (!interfaces) continue;
-    
+
     for (const net of interfaces) {
       // Only get IPv4 addresses, non-internal, and starting with 192.168 or 10.
-      if (net.family === 'IPv4' && 
-          !net.internal && 
-          (net.address.startsWith('192.168.') || net.address.startsWith('10.'))) {
+      if (
+        net.family === "IPv4" &&
+        !net.internal &&
+        (net.address.startsWith("192.168.") || net.address.startsWith("10."))
+      ) {
         return net.address;
       }
     }
   }
-  return 'localhost'; // Return localhost if no suitable IP is found
+  return "localhost"; // Return localhost if no suitable IP is found
 };
 
 /**
@@ -87,31 +97,31 @@ const getLocalIP = () => {
  * Creates it if it doesn't exist
  */
 const ensureDistDirectory = () => {
-  const distPath = './dist';
+  const distPath = "./dist";
   if (!fs.existsSync(distPath)) {
     fs.mkdirSync(distPath);
-    console.log(chalk.green('📁 Created dist directory'));
+    console.log(chalk.green("📁 Created dist directory"));
   }
 };
 
 // Start the Vite build process with watch mode
-spawn('vite', ['build', '--watch', '--mode', 'dev'], {
-  stdio: 'inherit',
-  shell: true
+spawn("vite", ["build", "--watch", "--mode", "dev"], {
+  stdio: "inherit",
+  shell: true,
 });
 
 // Debounce timer for file change events
 let debounceTimer: NodeJS.Timeout | null = null;
 
-wss.on('connection', (client) => {
-  console.log(chalk.green('🔌 New Blinko client connected'));
+wss.on("connection", (client) => {
+  console.log(chalk.green("🔌 New Blinko client connected"));
   sendLatestCode(client);
 });
 
 ensureDistDirectory();
 // Watch for changes in the 'dist' directory
-watch('./dist', { recursive: true }, (eventType, filename) => {
-  if (filename && filename.endsWith('.js')) {
+watch("./dist", { recursive: true }, (eventType, filename) => {
+  if (filename && filename.endsWith(".js")) {
     // Clear the previous timer
     if (debounceTimer) {
       clearTimeout(debounceTimer);
@@ -132,7 +142,7 @@ watch('./dist', { recursive: true }, (eventType, filename) => {
  */
 const createHttpServer = (port: number = 3000) => {
   const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     const html = `
       <!DOCTYPE html>
       <html>
@@ -232,48 +242,32 @@ const createHttpServer = (port: number = 3000) => {
             document.addEventListener('DOMContentLoaded', () => {
               const externalUrlElement = document.querySelector('.code:last-of-type');
               if (externalUrlElement) {
-                // Handle CodeSandbox domain
                 const hostname = window.location.hostname;
-                const wsHostname = hostname.includes('-3000') 
-                  ? hostname.replace('-3000', '-8080')
-                  : hostname;
-                
-                externalUrlElement.textContent = \`ws://\${wsHostname}:8080\`;
+                // Handle CodeSandbox and other development domains
+                const wsHostname = hostname.replace(/-\d{4}\.preview\.csb\.app$/, '-8080.preview.csb.app')
+                                        .replace(/-3000\./, '-8080.');
+                externalUrlElement.textContent = \`ws://\${wsHostname}\`;
               }
             });
 
             function copyToClipboard(element) {
               const text = element.textContent.trim();
-              
-              // Try using the modern Clipboard API first
-              if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text)
-                  .then(() => showToast())
-                  .catch(err => fallbackCopy(text));
-              } else {
-                fallbackCopy(text);
-              }
-            }
-
-            function fallbackCopy(text) {
-              // Create a temporary textarea element
-              const textarea = document.createElement('textarea');
-              textarea.value = text;
-              textarea.style.position = 'fixed';
-              textarea.style.opacity = '0';
-              document.body.appendChild(textarea);
-              
-              // Select and copy the text
-              textarea.select();
-              try {
-                document.execCommand('copy');
+              navigator.clipboard.writeText(text).then(() => {
                 showToast();
-              } catch (err) {
-                console.error('Failed to copy:', err);
-              }
-              
-              // Clean up
-              document.body.removeChild(textarea);
+              }).catch(() => {
+                // Fallback for browsers that don't support clipboard API
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                  document.execCommand('copy');
+                  showToast();
+                } catch (err) {
+                  console.error('Failed to copy:', err);
+                }
+                document.body.removeChild(textarea);
+              });
             }
 
             function showToast() {
@@ -291,7 +285,11 @@ const createHttpServer = (port: number = 3000) => {
   });
 
   server.listen(port, () => {
-    console.log(chalk.cyan(`📝 Documentation server running at http://${getLocalIP()}:${port}`));
+    console.log(
+      chalk.cyan(
+        `📝 Documentation server running at http://${getLocalIP()}:${port}`
+      )
+    );
     console.log(chalk.cyan(`📝 Local access: http://localhost:${port}`));
   });
 };
@@ -301,12 +299,16 @@ const createHttpServer = (port: number = 3000) => {
  */
 async function initServer() {
   ensureDistDirectory();
-  
+
   // Start HTTP server for documentation
   createHttpServer();
-  
-  console.log(chalk.cyan(`🎉 WebSocket server running at ws://${getLocalIP()}:8080`));
-  console.log(chalk.yellow('ℹ️  Open http://localhost:3000 for connection instructions'));
+
+  console.log(
+    chalk.cyan(`🎉 WebSocket server running at ws://${getLocalIP()}:8080`)
+  );
+  console.log(
+    chalk.yellow("ℹ️  Open http://localhost:3000 for connection instructions")
+  );
 }
 
 // Start the server
