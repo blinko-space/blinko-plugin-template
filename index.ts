@@ -6,6 +6,8 @@ import * as path from 'path';
 import chalk from 'chalk';
 import { networkInterfaces } from 'os';
 import plugin from './plugin.json'
+import * as http from 'http';
+
 // Get command line arguments
 const args = process.argv.slice(2);
 
@@ -125,11 +127,145 @@ watch('./dist', { recursive: true }, (eventType, filename) => {
 });
 
 /**
+ * Creates a simple HTTP server to display connection instructions
+ * @param {number} port - HTTP server port
+ */
+const createHttpServer = (port: number = 3000) => {
+  const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Blinko Plugin Development Server</title>
+          <style>
+            body {
+              font-family: system-ui, -apple-system, sans-serif;
+              max-width: 800px;
+              margin: 40px auto;
+              padding: 0 20px;
+              line-height: 1.6;
+              color: #333;
+            }
+            .container {
+              background: #f5f5f5;
+              border-radius: 8px;
+              padding: 20px;
+              margin: 20px 0;
+            }
+            .code {
+              background: #e0e0e0;
+              padding: 10px;
+              border-radius: 4px;
+              font-family: monospace;
+              cursor: pointer;
+              position: relative;
+              transition: background-color 0.2s;
+            }
+            .code:hover {
+              background: #d0d0d0;
+            }
+            .code::after {
+              content: 'Click to copy';
+              position: absolute;
+              right: 10px;
+              font-size: 12px;
+              color: #666;
+              opacity: 0;
+              transition: opacity 0.2s;
+            }
+            .code:hover::after {
+              opacity: 1;
+            }
+            .toast {
+              position: fixed;
+              top: 20px;
+              right: 20px;
+              padding: 10px 20px;
+              background: #4CAF50;
+              color: white;
+              border-radius: 4px;
+              display: none;
+              animation: fadeIn 0.3s, fadeOut 0.3s 1.7s;
+            }
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(-20px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeOut {
+              from { opacity: 1; transform: translateY(0); }
+              to { opacity: 0; transform: translateY(-20px); }
+            }
+          </style>
+        </head>
+        <body>
+          <div id="toast" class="toast">Copied to clipboard!</div>
+          <h1>🔌 Blinko Plugin Development Server</h1>
+          <div class="container">
+            <h2>Connection Instructions:</h2>
+            <p>Please enter the following WebSocket URL in your Blinko plugin settings:</p>
+            
+            <p>Local Network Access:</p>
+            <div class="code" onclick="copyToClipboard(this)">
+              ws://${getLocalIP()}:8080
+            </div>
+            
+            <p>Local Access:</p>
+            <div class="code" onclick="copyToClipboard(this)">
+              ws://localhost:8080
+            </div>
+
+            <p>External Access:</p>
+            <div class="code" onclick="copyToClipboard(this)">
+              ws://<script>document.write(window.location.hostname)</script>:8080
+            </div>
+          </div>
+          <div class="container">
+            <h3>Plugin Information:</h3>
+            <p><strong>Name:</strong> ${plugin.name}</p>
+            <p><strong>Version:</strong> ${plugin.version}</p>
+          </div>
+          <p class="highlight">Note: Keep this window open while developing your plugin.</p>
+
+          <script>
+            function copyToClipboard(element) {
+              const text = element.textContent.trim();
+              navigator.clipboard.writeText(text)
+                .then(() => showToast())
+                .catch(err => console.error('Failed to copy:', err));
+            }
+
+            function showToast() {
+              const toast = document.getElementById('toast');
+              toast.style.display = 'block';
+              setTimeout(() => {
+                toast.style.display = 'none';
+              }, 2000);
+            }
+          </script>
+        </body>
+      </html>
+    `;
+    res.end(html);
+  });
+
+  server.listen(port, () => {
+    console.log(chalk.cyan(`📝 Documentation server running at http://${getLocalIP()}:${port}`));
+    console.log(chalk.cyan(`📝 Local access: http://localhost:${port}`));
+  });
+};
+
+/**
  * Initialize server and setup environment
  */
 async function initServer() {
-  // Start WebSocket server
-  console.log(chalk.cyan(`🎉 Development server running at ws://${getLocalIP()}:8080`));
+  ensureDistDirectory();
+  
+  // Start HTTP server for documentation
+  createHttpServer();
+  
+  console.log(chalk.cyan(`🎉 WebSocket server running at ws://${getLocalIP()}:8080`));
+  console.log(chalk.yellow('ℹ️  Open http://localhost:3000 for connection instructions'));
 }
 
 // Start the server
