@@ -12,12 +12,12 @@ cd blinko-plugin-template
 
 2. Install dependencies
 ```bash
-npm install
+bun install
 ```
 
 3. Start development server
 ```bash
-npm run dev
+bun run dev
 ```
 
 4. Visit `http://localhost:3000` for connection instructions
@@ -28,8 +28,8 @@ npm run dev
 
 ## 🛠️ Development Commands
 
-- `npm run dev` - Start development server
-- `npm run release:publish` - Build and publish plugin
+- `bun run dev` - Start development server
+- `bun run release:publish` - Build and publish plugin
 
 ## 📁 Directory Structure
 
@@ -47,12 +47,23 @@ Configure your plugin in `plugin.json`:
 
 ```json
 {
-  "name": "your-plugin-name",
-  "displayName": "Your Plugin Display Name",
-  "description": "Your plugin description",
-  "version": "1.0.0",
-  "author": "Your Name",
-  "minAppVersion": "0.0.1"
+  "name": "blinko-plugin-demo",
+  "author": "blinko-offical",
+  "url": "https://github.com/blinko-space/blinko-plugin-template",
+  "version": "0.0.4",
+  "minAppVersion": "0.0.0",
+  "displayName": {
+    "default": "Blinko plugin demo",
+    "zh": "Blinko插件示例"
+  },
+  "description": {
+    "default": "This is a blinko plugin demo, you can use it as a template to create your own plugin.",
+    "zh": "这是一个blinko插件示例，你可以使用它作为模板来创建自己的插件。"
+  },
+  "readme": {
+    "default": "README.md",
+    "zh": "README_zh.md"
+  }
 }
 ```
 
