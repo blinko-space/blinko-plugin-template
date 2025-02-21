@@ -7,7 +7,7 @@ export function App(): JSXInternal.Element {
 
   return (
     <>
-      <h1>{i18n.t('title')}2</h1>
+      <h1>{i18n.t('title')}</h1>
       <div class="card">
         <button onClick={() => {
           setCount(count => count + 1);
