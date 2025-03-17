@@ -38,11 +38,6 @@ export default defineConfig(({ mode }) => ({
       }
     }
   ],
-  define: {
-    '__PLUGIN_JSON__': plugin,
-    '__en__': en,
-    '__zh__': zh
-  },
   build: {
     lib: {
       entry: 'src/index.tsx',
@@ -53,7 +48,9 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       external: ['blinko'],
       output: {
-        inlineDynamicImports: true
+        inlineDynamicImports: true,
+        banner: '(function() {',
+        footer: '})();',
       }
     }
   },
