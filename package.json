@@ -7,13 +7,14 @@
     "@types/node": "^22.13.4",
     "@vitejs/plugin-react": "^4.3.4",
     "blinko": "^0.0.11",
-    "blinko-cli": "^0.0.1",
+    "blinko-cli": "^0.0.2",
+    "vite-plugin-blinko": "^1.0.0",
     "typescript": "^5.0.0",
     "vite": "^4.0.0"
   },
   "description": "a blinko plugin",
   "scripts": {
-    "dev": "bun run index.ts",
+    "dev": "blinko-cli dev server",
     "ngrok": "ngrok http 8080",
     "release:publish": "vite build --mode production && blinko-cli release plugin"
   },
