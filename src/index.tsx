@@ -2,7 +2,7 @@
 /// <reference types="systemjs" />
 
 import { render } from 'preact/compat';
-import { App } from "./app"
+import { App } from "./app";
 import type { BasePlugin } from 'blinko';
 import { Setting } from './setting';
 import plugin from '../plugin.json';
